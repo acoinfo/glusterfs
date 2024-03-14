@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="GB2312" standalone="no"?>
+<SylixOSSetting>
+    <BaseSetting Profile="standard" ProjectType="SylixOSSoProject" RealEvoVer="5.0.5 Ultimate" TlsVersion="default"/>
+    <OutputSetting>
+        <OutputPath Name="Output" Path="Release:Debug" TreeNode="Output"/>
+        <OutputPath Name="Debug" Path="Debug" TreeNode="Debug"/>
+        <OutputPath Name="Release" Path="Release" TreeNode="Release"/>
+    </OutputSetting>
+    <BuildSetting CoustomCfgMakefile="true" NeedReBuild="false" NotScanSourceFile="true"/>
+    <DeviceSetting DevName="192.168.7.30" WorkDir="/apps/glusterfs"/>
+    <UploadPath>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/gluster" value="/sbin/gluster"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/glusterfsd" value="/sbin/glusterfsd"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/gluster-setfgid2path" value="/sbin/gluster-setfgid2path"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/libglusterfs.so" value="/lib/libglusterfs.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/libglusterd.so" value="/lib/libglusterd.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/libgfrpc.so" value="/lib/libgfrpc.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/libgfxdr.so" value="/lib/libgfxdr.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/libgfchangelog.so" value="/lib/libgfchangelog.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/socket.so" value="/lib/glusterfs/rpc-transport/socket.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/meta.so" value="/lib/glusterfs/xlator/meta.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/fuse.so" value="/lib/glusterfs/xlator/mount/fuse.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/client.so" value="/lib/glusterfs/xlator/protocol/client.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/server.so" value="/lib/glusterfs/xlator/protocol/server.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/quick-read.so" value="/lib/glusterfs/xlator/performance/quick-read.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/open-behind.so" value="/lib/glusterfs/xlator/performance/open-behind.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/md-cache.so" value="/lib/glusterfs/xlator/performance/md-cache.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/io-threads.so" value="/lib/glusterfs/xlator/performance/io-threads.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/io-cache.so" value="/lib/glusterfs/xlator/performance/io-cache.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/nl-cache.so" value="/lib/glusterfs/xlator/performance/nl-cache.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/read-ahead.so" value="/lib/glusterfs/xlator/performance/read-ahead.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/readdir-ahead.so" value="/lib/glusterfs/xlator/performance/readdir-ahead.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/ec.so" value="/lib/glusterfs/xlator/cluster/ec.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/dht.so" value="/lib/glusterfs/xlator/cluster/dht.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/afr.so" value="/lib/glusterfs/xlator/cluster/afr.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/utime.so" value="/lib/glusterfs/xlator/features/utime.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/io-stats.so" value="/lib/glusterfs/xlator/debug/io-stats.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/glusterd.so" value="/lib/glusterfs/xlator/mgmt/glusterd.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/posix.so" value="/lib/glusterfs/xlator/storage/posix.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/addr.so" value="/lib/glusterfs/auth/addr.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/login.so" value="/lib/glusterfs/auth/login.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/cloudsynccvlt.so" value="/lib/glusterfs/cloudsync-plugins/cloudsynccvlt.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/nufa.so" value="/lib/glusterfs/xlator/cluster/nufa.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/switch.so" value="/lib/glusterfs/xlator/cluster/switch.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/api.so" value="/lib/glusterfs/xlator/mount/api.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/bit-rot.so" value="/lib/glusterfs/xlator/features/bit-rot.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/changelog.so" value="/lib/glusterfs/xlator/features/changelog.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/index.so" value="/lib/glusterfs/xlator/features/index.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/marker.so" value="/lib/glusterfs/xlator/features/marker.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/quiesce.so" value="/lib/glusterfs/xlator/features/quiesce.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/read-only.so" value="/lib/glusterfs/xlator/features/read-only.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/shard.so" value="/lib/glusterfs/xlator/features/shard.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/thin-arbiter.so" value="/lib/glusterfs/xlator/features/thin-arbiter.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/arbiter.so" value="/lib/glusterfs/xlator/features/arbiter.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/bitrot-stub.so" value="/lib/glusterfs/xlator/features/bitrot-stub.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/cloudsync.so" value="/lib/glusterfs/xlator/features/cloudsync.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/leases.so" value="/lib/glusterfs/xlator/features/leases.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/quotad.so" value="/lib/glusterfs/xlator/features/quotad.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/sdfs.so" value="/lib/glusterfs/xlator/features/sdfs.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/trash.so" value="/lib/glusterfs/xlator/features/trash.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/worm.so" value="/lib/glusterfs/xlator/features/worm.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/barrier.so" value="/lib/glusterfs/xlator/features/barrier.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/gfid-access.so" value="/lib/glusterfs/xlator/features/gfid-access.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/locks.so" value="/lib/glusterfs/xlator/features/locks.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/quota.so" value="/lib/glusterfs/xlator/features/quota.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/upcall.so" value="/lib/glusterfs/xlator/features/upcall.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/selinux.so" value="/lib/glusterfs/xlator/features/selinux.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/posix-acl.so" value="/lib/glusterfs/xlator/system/posix-acl.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/glfsheal" value="/lib/glusterfs/glfsheal"/>
+    </UploadPath>
+    <ExtDevNames/>
+    <UploadPathEx>
+        <PairItem key="$(WORKSPACE_glusterfs)/etc/mklink_glusterfs.sh" value="/etc/glusterfs/mklink_glusterfs.sh"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/etc/glusterd.vol" value="/etc/glusterfs/glusterd.vol"/>
+    </UploadPathEx>
+</SylixOSSetting>
