@@ -38,7 +38,7 @@ libreadline | Base 组件
 类别 | 记录
 | - | - |
 服务端 | 依赖接口 xattr / hard-link / telldir / seekdir, 请确认使用的内核版本是否支持以上特性
-\- | LW_CFG_FS_XATTR_EN 默认为关闭状态，需要在内核 fs_cfg.h 中将其打开
+\- | 请确保内核 fs_cfg.h 中 LW_CFG_FS_XATTR_EN 为开启状态
 \- | setrlimit 参数未生效，需要将内核的 system_cfg.h 中 LW_CFG_MAX_FILES 配置为 65535
 \- | gluster 会占用较多的 event 资源，默认情况下 5000 的数量只能满足启动一个卷的场景，如果需要开启多个卷，请调整 kernel_cfg.h 中的 LW_CFG_MAX_EVENTS
 \- | gluster probe 建立过程中会用到 getnameinfo 接口，请提前配置 DNS 服务，否则会因超时导致该流程耗时较长
