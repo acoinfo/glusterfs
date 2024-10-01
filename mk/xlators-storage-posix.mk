@@ -128,7 +128,7 @@ LOCAL_POST_STRIP_CMD :=
 #*********************************************************************************************************
 # Depend target
 #*********************************************************************************************************
-LOCAL_DEPEND_TARGET := 
+LOCAL_DEPEND_TARGET := $(OUTDIR)/libglusterfs.so $(OUTDIR)/libgfrpc.so $(OUTDIR)/libgfxdr.so
 
 include $(LIBRARY_MK)
 

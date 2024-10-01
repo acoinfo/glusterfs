@@ -515,6 +515,9 @@ pub_glfs_close(struct glfs_fd *glfd)
     DECLARE_OLD_THIS;
     __GLFS_ENTRY_VALIDATE_FD(glfd, invalid_fs);
 
+    /* Add for SylixOS: Fix #4284 */
+    gf_dirent_free(list_entry(&glfd->entries, gf_dirent_t, list));
+    /* Add for SylixOS end: Fix #4284 */
     subvol = glfs_active_subvol(glfd->fs);
     if (!subvol) {
         ret = -1;

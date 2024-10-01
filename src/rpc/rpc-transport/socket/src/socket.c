@@ -748,6 +748,15 @@ __socket_rwv(rpc_transport_t *this, struct iovec *vector, int count,
         if (ret < 0) {
             if (errno == EINTR)
                 continue;
+#ifdef SYLIXOS
+            /*
+             * In SylixOS, only a maximum of 255 threads are allowed to listen using select on a socket,
+             * and an EBUSY error will be generated if this limit is exceeded.
+             * The EBUSY error can be ignored at this point.
+             */
+            if (errno == EBUSY)
+                continue;
+#endif
 
             if (__does_socket_rwv_error_need_logging(priv, write)) {
                 GF_LOG_OCCASIONALLY(priv->log_ctr, this->name, GF_LOG_WARNING,

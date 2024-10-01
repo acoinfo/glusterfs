@@ -81,12 +81,6 @@ gluster vol start <volume-name>
 glusterfs --process-name fuse --volfile-server=<server-ip> --volfile-id=<volume-name> /mnt/glusterfs
 ```
 
-目前 write-behind 功能暂不支持，请在服务端关闭该特性
-
-```
-gluster vol set <volume-name> performance.write-behind off
-```
-
 如果需要使用分布式卷（Distributed Volume），请在服务端设置开启 readdir-ahead 功能。（由于 SylixOS 的 readdir 使用方式不同，此处在 Fuse 中进行了特殊处理）
 
 配置命令
@@ -97,9 +91,13 @@ gluster vol set <volume-name> performance.readdir-ahead on
 
 ## 已知问题
 
-- 在连续 WRITE 操作 64K 数据时，存在卡死问题，在 AArch64 和 MIPS64 平台均能复现，暂未定位到具体原因，进行了如下调整：
-    - default_page_size 128K -> 32K
+- DHT_LINKFILE_MODE 及 IS_DHT_LINKFILE_MODE 宏功能无法支持
+  - 目前在 SylixOS 中 chmod 强制保留文件所有者的可读权限，该行为导致文件权限无法被设置为 `---------T`。此权限被用于判断文件是否为 GlusterFs 的链接文件。
+  - 此问题导致分布式卷中执行 rename 操作时有概率出现同名文件，当前解决方案为在服务端检查文件的 "trusted.glusterfs.dht.linkto" xattr 属性，如果存在则不进行上报。
 
-- EVENT 资源泄露记录
-    - 目前 FUSE FORGET 流程还不完善，后续需要针对此项内容进行验证。
-    - md-cache 泄露数量 1：mdc_inode_prep 中创建的资源需要在 FORGET 流程中通过 mdc_inode_wipe 释放。
+- mknod 函数功能异常
+  - SylixOS 中 `mknod` 函数总是默认添加 DEFAULT_DIR_PERM(754) 权限，此问题将导致 GlusterFS 中 rename 操作无法正确创建出权限位为 `---------T` 的链接文件。
+  - 目前由于服务端对带有 "trusted.glusterfs.dht.linkto" xattr 属性的文件信息不进行上报，此问题暂不用修复。
+
+- SylixOS 与 Linux 结合使用
+  - 在任何情况下，Linux 使用的 GlusterFS 版本与 SylixOS 使用的 GlusterFS 版本(10.3) 应当一致。否则可能出现 rename 操作后出现重复文件等问题。

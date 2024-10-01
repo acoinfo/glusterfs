@@ -338,12 +338,7 @@ iobuf_pool_new(void)
         INIT_LIST_HEAD(&iobuf_pool->purge[i]);
     }
 
-#ifdef SYLIXOS
-    /* Reduced default page size due to stuck in the AArch64 */
-    iobuf_pool->default_page_size = 32 * GF_UNIT_KB;
-#else
     iobuf_pool->default_page_size = 128 * GF_UNIT_KB;
-#endif
 
     /* No locking required here
      * as no one else can use this pool yet

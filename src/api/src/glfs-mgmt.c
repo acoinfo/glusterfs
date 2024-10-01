@@ -202,6 +202,9 @@ mgmt_submit_request(void *req, call_frame_t *frame, glusterfs_ctx_t *ctx,
     struct iobuf *iobuf = NULL;
     struct iobref *iobref = NULL;
     ssize_t xdr_size = 0;
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    gf_boolean_t frame_cleanup = _gf_true;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 
     iobref = iobref_new();
     if (!iobref) {
@@ -235,6 +238,9 @@ mgmt_submit_request(void *req, call_frame_t *frame, glusterfs_ctx_t *ctx,
     /* Send the msg */
     ret = rpc_clnt_submit(ctx->mgmt, prog, procnum, cbkfn, &iov, count, NULL, 0,
                           iobref, frame, NULL, 0, NULL, 0, NULL);
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    frame_cleanup = _gf_false;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 
 out:
     if (iobref)
@@ -242,6 +248,12 @@ out:
 
     if (iobuf)
         iobuf_unref(iobuf);
+
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    if (frame_cleanup)
+        STACK_DESTROY(frame->root);
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
+
     return ret;
 }
 

@@ -30,6 +30,7 @@
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/nl-cache.so" value="/lib/glusterfs/xlator/performance/nl-cache.so"/>
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/read-ahead.so" value="/lib/glusterfs/xlator/performance/read-ahead.so"/>
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/readdir-ahead.so" value="/lib/glusterfs/xlator/performance/readdir-ahead.so"/>
+        <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/write-behind.so" value="/lib/glusterfs/xlator/performance/write-behind.so"/>
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/ec.so" value="/lib/glusterfs/xlator/cluster/ec.so"/>
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/dht.so" value="/lib/glusterfs/xlator/cluster/dht.so"/>
         <PairItem key="$(WORKSPACE_glusterfs)/$(Output)/strip/afr.so" value="/lib/glusterfs/xlator/cluster/afr.so"/>

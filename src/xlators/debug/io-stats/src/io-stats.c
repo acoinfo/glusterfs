@@ -642,6 +642,35 @@ ios_stats_cleanup(xlator_t *this, inode_t *inode)
     return 0;
 }
 
+#ifdef SYLIXOS
+static int
+ios_stats_free(xlator_t *this, inode_t *inode)
+{
+    struct ios_stat *iosstat = NULL;
+    uint64_t iosstat64 = 0;
+
+    inode_ctx_del(inode, this, &iosstat64);
+    if (!iosstat64) {
+        gf_log(this->name, GF_LOG_WARNING, "could not get inode ctx");
+        return 0;
+    }
+    iosstat = (void *)(long)iosstat64;
+    if (!iosstat) {
+        return 0;
+    }
+
+    if (iosstat->filename) {
+        GF_FREE(iosstat->filename);
+        iosstat->filename = NULL;
+    }
+    LOCK_DESTROY(&iosstat->lock);
+    GF_FREE(iosstat);
+    iosstat = NULL;
+
+    return 0;
+}
+#endif
+
 #define ios_log(this, logfp, fmt...)                                           \
     do {                                                                       \
         if (logfp) {                                                           \
@@ -3463,7 +3492,7 @@ io_stats_release(xlator_t *this, fd_t *fd)
     }
 
 #ifdef SYLIXOS
-    ios_stats_cleanup(this, fd->inode);
+    ios_stats_free(this, fd->inode);
 #endif
 
     return 0;
@@ -3473,6 +3502,10 @@ int
 io_stats_releasedir(xlator_t *this, fd_t *fd)
 {
     BUMP_FOP(RELEASEDIR);
+
+#ifdef SYLIXOS
+    ios_stats_free(this, fd->inode);
+#endif
 
     return 0;
 }

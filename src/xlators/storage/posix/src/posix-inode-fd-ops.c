@@ -55,6 +55,7 @@
 #include "posix-gfid-path.h"
 #include <glusterfs/compat-uuid.h>
 #include <glusterfs/common-utils.h>
+#include <sys/xattr.h>
 
 extern char *marker_xattrs[];
 #define ALIGN_SIZE 4096
@@ -5544,6 +5545,21 @@ posix_fentrylk(call_frame_t *frame, xlator_t *this, const char *volume,
     return 0;
 }
 
+#ifdef SYLIXOS
+// Checks whether the specified file is a linked file used by GlusterFS.
+// If GlusterFS using link files, it will contain 'trusted.glusterfs.dht.linkto' extended attributes.
+static gf_boolean_t is_gluster_link(int dir_fd, char *file_name)
+{
+    int fd = sys_openat(dir_fd, file_name, 0, O_RDONLY);
+    if (fd < 0) {
+        return _gf_false;
+    }
+    int ret = fgetxattr(fd, "trusted.glusterfs.dht.linkto", NULL, 0);
+    close(fd);
+    return ret > 0;
+}
+#endif
+
 static int
 posix_fill_readdir(fd_t *fd, struct posix_fd *pfd, off_t off, size_t size,
                    gf_dirent_t *entries, xlator_t *this, int32_t skip_dirs)
@@ -5637,6 +5653,15 @@ posix_fill_readdir(fd_t *fd, struct posix_fd *pfd, off_t off, size_t size,
                     continue;
             }
         }
+
+#ifdef SYLIXOS
+        // If it's a linked file used by GlusterFS, skip it.
+        // Doing otherwise will result in duplicate file entries in the distributed volume.
+        // This is a temporary solution, and you may consider replacing it with something more performant.
+        if (is_gluster_link(pfd->dir->dir_fd, entry->d_name)) {
+            continue;
+        }
+#endif
 
         this_size = max(sizeof(gf_dirent_t), sizeof(gfs3_dirplist)) +
                     strlen(entry->d_name) + 1;

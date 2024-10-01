@@ -2107,6 +2107,9 @@ mgmt_submit_request(void *req, call_frame_t *frame, glusterfs_ctx_t *ctx,
     struct iobuf *iobuf = NULL;
     struct iobref *iobref = NULL;
     ssize_t xdr_size = 0;
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    gf_boolean_t frame_cleanup = _gf_true;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 
     iobref = iobref_new();
     if (!iobref) {
@@ -2139,13 +2142,21 @@ mgmt_submit_request(void *req, call_frame_t *frame, glusterfs_ctx_t *ctx,
     /* Send the msg */
     ret = rpc_clnt_submit(ctx->mgmt, prog, procnum, cbkfn, &iov, count, NULL, 0,
                           iobref, frame, NULL, 0, NULL, 0, NULL);
-
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    frame_cleanup = _gf_false;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 out:
     if (iobref)
         iobref_unref(iobref);
 
     if (iobuf)
         iobuf_unref(iobuf);
+
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    if (frame_cleanup)
+        STACK_DESTROY(frame->root);
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
+
     return ret;
 }
 
@@ -2491,6 +2502,11 @@ glusterfs_volfile_fetch_one(glusterfs_ctx_t *ctx, char *volfile_id)
     ret = mgmt_submit_request(&req, frame, ctx, &clnt_handshake_prog,
                               GF_HNDSK_GETSPEC, mgmt_getspec_cbk,
                               (xdrproc_t)xdr_gf_getspec_req);
+
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    /*  In case of error the frame will be destroy by rpc_clnt_submit */
+    frame = NULL;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 
 out:
     GF_FREE(req.xdata.xdata_val);
@@ -3025,6 +3041,9 @@ mgmt_pmap_signin_cbk(struct rpc_req *req, struct iovec *iov, int count,
     char brick_name[PATH_MAX] = {
         0,
     };
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    gf_boolean_t frame_cleanup = _gf_true;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
 
     frame = myframe;
     ctx = glusterfsd_ctx;
@@ -3065,6 +3084,9 @@ mgmt_pmap_signin_cbk(struct rpc_req *req, struct iovec *iov, int count,
     ret = mgmt_submit_request(&pmap_req, frame, ctx, &clnt_pmap_prog,
                               GF_PMAP_SIGNIN, mgmt_pmap_signin2_cbk,
                               (xdrproc_t)xdr_pmap_signin_req);
+    /* Add for SylixOS: Merge from 10.5, Fix #4190 */
+    frame_cleanup = _gf_false;
+    /* Add for SylixOS end: Merge from 10.5, Fix #4190 */
     if (ret)
         goto out;
 
@@ -3074,7 +3096,11 @@ out:
     if (need_emancipate && (ret < 0 || !cmd_args->brick_port2))
         emancipate(ctx, emancipate_ret);
 
-    STACK_DESTROY(frame->root);
+    /* Modify for SylixOS: Merge from 10.5, Fix #4190 */
+    if (frame_cleanup)
+        STACK_DESTROY(frame->root);
+    /* Modify for SylixOS end: Merge from 10.5, Fix #4190 */
+
     return 0;
 }
 
